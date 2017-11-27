@@ -1,0 +1,60 @@
+Stability of Predator-Prey Dynamics Project Plan
+
+2 Consumer-resource models
+
+Lotka Volterra
+
+dH/dt = bH − aPH
+dP/dt = eaPH−sP
+H (herbivore)=prey, P=predator, b=prey birth rate, a=predator attack rate, e=efficiency of prey to predators, s=predator death rate
+
+Problem 1. draw a conceptual model using boxes and arrows; be sure to annotate the boxes with state variable symbols (H and P) and arrows with labels and parameter values that influence each arrow
+Complete By Friday-Zoe 
+
+Write Code for Problem 1. 
+Complete By Friday-Soren 
+
+Problem 2. Simulate dynamics with the following parameters and initial conditions: b = 0.5, a = 0.02, e = 0.1,s = 0.2, H0 = 25, P0 = 5. I recommend running simulations with time steps of 0.1.
+Write Code for Problem 2 by Friday- Zoe 
+Make Plots for Problem 2 by Sunday- Thomas
+
+Problem 3. run a number of additional simulations changing one of the parameters at a time to learn how each parameter affects the dynamics of the populations. You should be able to increase or decrease each parameter by as much as a factor of 2 to 4 without causing major problems.
+Modify plots and learn how it changes for Problem 3 by Monday - Zoe, Soren, Thomas
+
+Based on your conceptual model and simulation dynamics, answer the following questions. Support your answers with graphical evidence from simulations or summary values from simulations.
+• What can you say about the “role” of each parameter?
+• what can you say about the role of predators in the simulations?
+• what is the relationship between parameter values and predator-prey cycle length?
+Answer Questions by Monday (nxt week) - Zoe Soren Thomas
+
+Rosenzweig-MacArthur
+
+Problem 1. draw a conceptual model using boxes and arrows; be sure to annotate the boxes with state variable symbols (H and P) and arrows with labels and parameter values that influence each arrow
+Complete By Friday-Zoe 
+
+Write Code for Problem 1. 
+Complete By sunday -Soren 
+
+Problem 2. simulate dynamics with the following parameters and initial conditions: b = 0.8, e = 0.07, s = 0.2, w = 5, d = 400, α = 0.001, H0 = 500, P0 = 120.
+Write Code for Problem 2 by sun.- Zoe 
+Make Plots for Problem 2 by tuesday next week- Thomas
+
+Problem 3. run a number of additional simulations changing one of the parameters at a time to learn how each parameter affects the dynamics of the populations. You should be able to increase or decrease each parameter by as much as a factor of 2 to 4 without causing major problems.
+Modify plots and learn how it changes for Problem 3 by wed next week - Zoe, Soren, Thomas
+
+Based on your conceptual model and simulation dynamics, answer the following questions. Support your answers with graphical evidence from simulations or summary values from simulations.
+• how do the dynamics differ from Lotka-Volterra?
+• what can you say about the “role” of each parameter, especially what causes the dyamics to differ
+between the L-V and R-M models?
+• what is the relationship between parameter values and predator abundance?
+Answer Questions by wednesday (nxt week) - Zoe Soren Thomas
+
+The Paradox of Enrichment
+
+Problem 1. Use the R-M consumer-resource model from above to simulate dynamics with carrying capcity varying from 800 to 2000
+(α 0.00125 to 5e-4).
+Simulate Dynamics by thursday next week- Soren
+
+• what happens as carrying capacity increases?
+• why do you think we see the Paradox of Enrichment?
+Answer questions by thursday next week - Zoe Thomas
