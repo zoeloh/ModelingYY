@@ -1,0 +1,42 @@
+# Rosenzweig-MacArthur Consumer-Resource Model Code
+# Code by: Thomas W. Mitchell
+
+# Import packages:
+
+import numpy
+import pandas
+import scipy
+import scipy.integrate as spint
+from plotnine import *
+
+# Define custom function:
+
+def RMsim(y,t,b,a,e,s,w,d):
+
+    # Set initial values, insert equations from instructions:
+    H = y[0]
+    P = y[1]
+    dHdt = b*H*(1-a*H) - (w)*(H/(d+H))*(P)
+    dPdt = (e*w)*(H/(d+H))*P - s*P
+    return [dHdt, dPdt]
+    
+# Set parameter values:
+    
+b = 0.800
+a = 0.001
+e = 0.070 
+s = 0.200
+w = 5.000
+d = 400.00
+
+initialConditions = [500,120]
+parameters = (b,a,e,s,w,d)   
+times = numpy.arange (0,500,0.1)
+
+modelSim=spint.odeint(func=RMsim, y0=initialConditions, t=times, args=parameters)
+modelOutput=pandas.DataFrame({"time":times, "H":modelSim[:,0], "P":modelSim[:,1]})
+
+# Generate plots for the Rosenzweig-MacArthur consumer-resource model: 
+
+g1=ggplot(modelOutput,aes(x="time",y="H"))+geom_line()+geom_line(aes(y="d"), color='blue', linetype='dotted')+geom_line()+geom_line(aes(y="a"), color='blue', linetype='dashed')+ggtitle("Rosenzweig-MacArthur Model Outcomes")+ylab("Prey Counts")+xlab("Time")
+g1+theme_classic()
