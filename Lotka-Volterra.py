@@ -16,15 +16,15 @@ def LVSim(y,t,a,b,e,s):
     return [dHdt,dPdt]
     
 #Here you can change the initial number of herbivores and predators present at the start of the simulation
-H0 = 25 #H0 is the initial number of herbivores
-P0 = 5 #P0 is the inital number of predators
+H0 = 25 #H0 is the initial number of herbivores (25)
+P0 = 5 #P0 is the inital number of predators (5)
 initialConditions = [H0,P0] #H0, P0
 
 #The following variables are parameters in the Lotka-Volterra model that affect the population dynamics. Change parameters here to see how they affect the dynmaics
-a = 0.02
-b = 0.5
-e = 0.1
-s = 0.2
+a = 0.08 #(0.02)
+b = 0.5 #(0.5)
+e = 0.1 #(0.1)
+s = 0.2 #(0.2)
 parameters = (a, b, e, s)
 
 #The variable times contains a list of times at which the state variables are evaluated. The spacing between the times corresponds to size of the integration steps

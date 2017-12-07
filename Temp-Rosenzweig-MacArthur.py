@@ -21,12 +21,12 @@ P0 = 120 #P0 is the inital number of predators (120)
 initialConditions = [H0,P0]
 
 #The following variables are parameters in the Rosenzweig-MacArthur model that affect the population dynamics. Change parameters here to see how they affect the dynmaics
-a = 0.001
-b = 0.8
-d = 400
-e = 0.07
-s = 0.2
-w = 5
+a = 0.001 #(0.001)
+b = 0.8 #(0.8)
+d = 400 #(400)
+e = 0.07 #(0.07)
+s = 0.2 #(0.2)
+w = 5 #(5)
 parameters = (a, b, d, e, s, w)
 
 #The variable times contains a list of times at which the state variables are evaluated. The spacing between the times corresponds to size of the integration steps
