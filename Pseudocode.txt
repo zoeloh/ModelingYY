@@ -1,0 +1,18 @@
+We will solve both problems very similarly and following this Pseudocode:
+
+1) Import modules pandas, scipy, numpy, plotnine
+
+2) Define function for integration of each model
+    sim(variables and parameters):
+        extract variables
+        calculate dHdt and dPdt
+        return dHdt and dPdt
+
+3) Set parameters and initial values of H and P
+
+4) Choose integration time and time-steps
+
+5) Integrate with the function spint.odeint()
+   Put result into a dataframe
+
+6) Plot with GGplot
