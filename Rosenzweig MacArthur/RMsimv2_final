@@ -1,0 +1,166 @@
+#############################################################
+# Rosenzweig-MacArthur Consumer-Resource Model Code - Final #
+# Code by: Thomas W. Mitchell                               #
+#############################################################
+
+# Import packages:
+
+import numpy
+import pandas
+import scipy
+import scipy.integrate as spint
+from plotnine import *
+
+# Define custom function, RMsim, that represents the Rosenzweig-MacArthur model:
+
+def RMsim(y,t,b,a,e,s,w,d):
+
+    # Set initial values, insert equations from instructions:
+    H = y[0]
+    P = y[1]
+    dHdt = b*H*(1-a*H) - (w)*(H/(d+H))*(P)
+    dPdt = (e*w)*(H/(d+H))*P - s*P
+    return [dHdt, dPdt]
+    the = "the"
+    
+# Set parameter values to their defaults (specified in the project description):
+
+b = 0.800
+a = 0.001
+e = 0.07
+s = 0.200
+w = 5.000
+d = 400.00
+the = ""
+
+# Set initial conditions to their defaults (specified in the project description):
+
+initialConditions = [500,120]
+parameters = (b,a,e,s,w,d)
+
+# Set limits for the time. After t >= 200, no changes are observed in the models, so the maximum was set here.
+
+times = numpy.arange (0,200,0.1)
+
+# Model simulations: 
+# Generate an empty array of the proper size, then populate accordingly with the parameters specified by the project.
+
+array1 = numpy.zeros((13,6))
+array1[0,]=parameters
+count = 1
+
+# For loop iterates to create variations on the parameters:
+
+for i in range(0,6):
+    array1[count,]=parameters
+    array1[count,i]=array1[count,i]*2
+    array1[count+1,]=parameters
+    array1[count+1,i]=array1[count+1,i]*0.5
+    count=count+2
+
+# Generate plots for the Rosenzweig-MacArthur consumer-resource model, with modifications of the variables: 
+# Code will automatically output the plots with a single parameter at a time being doubled and halved. 
+# Total of 13 plots - 1 default, 12 variants: 
+# Thanks Meredith for the guidance on this - much more efficient than doing this manually 13 times. 
+
+for j in range(0,13):
+    modelSim=spint.odeint(func=RMsim, y0=initialConditions, t=times, args=tuple(array1[j,]))
+    modelOutput=pandas.DataFrame({"time":times, "H":modelSim[:,0], "P":modelSim[:,1]})
+    img = ggplot(modelOutput,aes(x="time",y="H"))+geom_line()+geom_line(aes(x="time",y="P"))+ggtitle("Rosenzweig-MacArthur Model Outcomes")+ylab("Prey Counts")+xlab("Time")+theme_classic()
+    the = the + "j"
+    ggsave(img, filename=the)
+
+##################################################################
+# Comments on the output and role of the parameters:             #
+# Note: Top curve is prey population (H) and bottom curve is (P) #
+##################################################################
+# 
+# We could've used Jupyter Notebook for commenting, but I figured it would be easier for grading purposes
+# if all of the commentary were placed into the coding file. Be sure to reference the plots located in the
+# "ggplot outputs RM " folder located in the associated GitHub Repository (ModelingYY). 
+#
+########################################################
+# What can you say about the "role" of each parameter? #
+########################################################
+#
+# The "b" parameter represents an interaction between the prey and predators. When reduced to 0.4, the top
+# line (prey population) falls more precipitously to start before sharply - more so compared to the default
+# model where b = 0.8. The second decline in the prey population is slower compared to the default, as is the
+# rebounding population of the predators. At higher b values (e.g. 1.6), the prey population increases, then
+# decreases somewhat as the predator population increases. The values remain constant thereafter.
+# 
+# The "alpha" parameter represents carrying capacity. Modifying this parameter has a marked effect on the 
+# model output - a higher alpha value represents a lower carrying capacity, whereas a lower alpha value
+# represents a higher carrying capacity (as stated in the rubric). The effects of modifying this parameter 
+# is described in the "Paradox of Enrichment" section below.
+#
+# The "e" parameter represents another distinction interaction between the two species. At low e values,
+# the prey population stabilizes at increasingly higher numbers. Higher e values cause the prey and predator
+# values to fluctuate - the frequency doesn't change in so much as the slopes of the spikes in the prey
+# and predator populations. 
+#
+# The "s" parameter represents some other interaction between the killed and the killers. At low s values,
+# the model behaves like a high e value model; at high s values, the model behaves like a low e value. This
+# seems to imply that the e and s interactions may be inverse operations or the opposite of each other. 
+#
+# The "w" parameter also controls the stability of the model. Increasing it generally produces cycles of 
+# growth and collapse for both populations, whereas decreasing it cause the model to flatline. 
+#
+# The "d" parameter has the least visible effect on the model, but it does seem to affect whether or not the
+# prey population dips initially before increasing (reference the plots to visualize this dip, "d200" vs. "d800")
+#
+####################################################################
+# What can you say about the role of predators in the simulations? #
+####################################################################
+#
+# The predator populations are responsible for the precipitious declines in prey populations and keep their
+# numbers under control. Once the prey population has diminished significantly, the predator population falls
+# as not enough food is around to sustain those higher on the food chain. Fewer predators allow for the prey
+# population to rebound, which restarts the cycle observed in many of the models. 
+#
+# In non-cyclical plots, the prey population stays constant and can sustain a corresponding amount of predators.
+#
+#####################################################################################
+# What is the relationship between parameter values and predator-prey cycle length? #
+#####################################################################################
+#
+# The values of the parameters have the following effects on predator-prey cycle length: 
+#
+# Increase b: Time to stabilize is relatively minimized - quicker equilibrium.
+# Decrease b: Time to stabilize is prolonged - slower equilibrium. 
+# Increase a: Less instability in populations, i.e. fewer cycles, equilibrium, constant prey/predator populations.
+# Decrease a: More instability in populations, i.e. increases frequency of cycles, prey/predator populations ^/v
+# Increase e: More instability in populations, i.e. generally increases frequency of cycles.
+# Decrease e: Less instability in populations, i.e. fewer cycles, equilibirum, constant prey/predator populations.
+# Increase s: Less instability in populations, i.e. fewer cycles, equilibirum, constant prey/predator populations.
+# Decrease s: More instability in populations, i.e. generally increases frequency of cycles.
+# Increase w: More instability in populations, i.e. generally increases frequency of cycles.
+# Decrease w: Less instability in populations, i.e. fewer cycles, equilibirum, constant prey/predator populations.
+# Increase d: Little effect on the model (see figure entitled "d200")
+# Decrease d: Little effect on the model (see figure entitled "d800")
+#
+##############################
+# The paradox of enrichment: #                                    
+##############################
+#
+#################################################################################
+# What happens as carrying capacity increases (in other words, lowering alpha?) #
+#################################################################################
+#
+# Lowering the alpha value, or increasing carrying capacity, interestingly causes destabilization of the ecosystem.
+# More food available means that there is a boom in the prey population, followed by a boom in predator population,
+# which is then followed by a crash in the prey population, which then causes a crash in the predator population.
+# This cycle is illustrated in a file entitled "a0.0005.png"
+#
+######################################################
+# Why do you think we see the paradox of enrichment? #
+######################################################
+#
+# I would posit that the paradox of enrichment occurs because increasing the carrying capacity of the prey species
+# causes an unsustainable and sharp increase in the predator population, which has more food than before. The rate
+# of predator reproduction will quickly outstrip the rate at which the prey can replenish their numbers; the prey
+# numbers are culled quickly and cause the predators to starve - paradoxically, an initial increase in food can
+# destabilize the ecosystem and cause periods of starvation! 
+#
+
+
