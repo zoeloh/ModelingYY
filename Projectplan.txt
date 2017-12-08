@@ -33,7 +33,7 @@ Answer Questions by Monday (nxt week) - Zoe Soren Thomas
 Rosenzweig-MacArthur
 
 Problem 1. draw a conceptual model using boxes and arrows; be sure to annotate the boxes with state variable symbols (H and P) and arrows with labels and parameter values that influence each arrow
-Complete By Friday-Zoe 
+Complete By Friday-Zoe and Soren
 
 Write Code for Problem 1. 
 Complete By sunday -Soren and thomas
